@@ -1,4 +1,5 @@
 #include "queue.h"
+#include <stdio.h>
 /*
  typedef struct{
 	int length;
@@ -19,7 +20,20 @@ void QueueNew(Queue* queue, int elementSize, QueueFreeFunction freeFn){
 }
 
 void QueueDispose(Queue* queue){
-	//TODO
+	if(queue->freeFn != NULL){
+		for(int i = 0; i<queue->currentElement + queue->logicalSize; i++){
+			int offset = queue->elemSize * i;
+			void* addr = queue->generalMemory + offset;
+			queue->freeFn(addr);
+		}
+	}
+	
+	free(queue->generalMemory);
+	queue->logicalSize = 0;
+	queue->physicalSize = 0;
+	queue->currentElement = 0;
+	queue->elemSize = 0;
+	queue->freeFn = NULL;
 }
 
 void expandMemory(Queue* queue){
@@ -51,6 +65,7 @@ void QueueEnqueue(Queue* queue, void* elemAddr){
 }
 
 void* QueuePeek(Queue* queue, void* auxData, bool returnPointer){
+	assert(queue->logicalSize > 0);
 	int offset = queue->elemSize * queue->currentElement;
 	void* addr = queue->generalMemory + offset;
 
@@ -74,4 +89,8 @@ void QueueDequeue(Queue* queue){
 
 int QueueSize(Queue* queue){
 	return queue->logicalSize;
+}
+
+bool QueueEmpty(Queue* queue){
+	return queue->logicalSize == 0;
 }

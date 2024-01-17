@@ -70,4 +70,9 @@ void QueueDequeue(Queue* queue);
 */
 int QueueSize(Queue* queue);
 
+/*
+ * self-explanatory, returns false if there is at least one element
+*/
+bool QueueEmpty(Queue* queue);
+
 #endif
