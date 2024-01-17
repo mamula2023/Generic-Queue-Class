@@ -33,14 +33,14 @@ void testUsingPointerReturning(){
 		QueueDequeue(&q);
 	}
 	printf("checked\n");
-	QueueDispose(&q); // not implemented in queue.c at the moment of writing tests. so I will create new with other name
+	QueueDispose(&q); 
 	
 }
 void testWithoutPointerReturning(){
 	Queue q;
 	QueueNew(&q, sizeof(int), NULL);
 	int testSize = 10000000;	
-	printf("population again\n");
+	printf("populating again\n");
 	for(int i = 0;i <testSize; i++){
 		QueueEnqueue(&q, &i);
 	}
@@ -54,7 +54,7 @@ void testWithoutPointerReturning(){
 		QueueDequeue(&q);
 	}
 	printf("checked\n");
-
+	QueueDispose(&q);
 
 }
 void simpleNumberTests(){
@@ -65,7 +65,7 @@ void simpleNumberTests(){
 	endInfo("simple number test\n");
 }
 void simpleCharacterTests(){
-
+	
 }
 
 void simpleTest(){
