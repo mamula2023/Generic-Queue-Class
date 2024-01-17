@@ -8,15 +8,7 @@
  * simple tests on numbers and chars
  * lengths and dequeueing
 */
-void simpleTest(){
-	
-}
-
-void startTest(){
-	simpleTest();
-}
 
 
 int main(){
-	startTests();
 }
