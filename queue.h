@@ -2,14 +2,19 @@
 #define _queue_
 
 #include "stdbool.h"
+#include <string.h>
+#include <stdlib.h>
 
 typedef void (*QueueFreeFunction)(void *elemAddr);
 
 typedef struct{
-	int length;
-	void* firstElement;
-	int elementSize;
+	int logicalSize;
+	int physicalSize;
+	int currentElement;
+	void* generalMemory;
+	int elemSize;
 	QueueFreeFunction freeFn;
+	
 } Queue;
 /*
  * contructor for new queue. User should create own 
@@ -48,7 +53,7 @@ void QueueEnqueue(Queue* queue, void *elemAddr);
  *  2. If user wants to get pointer to original element 
  *  in the queue, they can pass false to auxData and true to
  *  returnPonter parameters. method will return pointer to
- *  first element
+ *  first element. It is user's responsibity if they change original element in queue
 */
 void* QueuePeek(Queue* queue, void* auxData, bool returnPointer);
 
